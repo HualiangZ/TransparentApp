@@ -17,8 +17,6 @@ public class DragObject : MonoBehaviour
                 Destroy(joints);
                 joints = null;
             }
-
-            //return;
         }
 
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -35,16 +33,7 @@ public class DragObject : MonoBehaviour
         }
 
         Collider2D collider = Physics2D.OverlapPoint(pos, clickLayerMask);
-/*        if (!collider)
-        {
-            return;
-        }*/
-
         Rigidbody2D attachedRigidbody = collider.attachedRigidbody;
-/*        if (!attachedRigidbody)
-        {
-            return;
-        }*/
         if(collider.tag == "Moveable")
         {
             joints = attachedRigidbody.gameObject.AddComponent<TargetJoint2D>();
