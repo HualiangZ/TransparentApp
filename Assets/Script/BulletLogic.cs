@@ -29,13 +29,13 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.collider.gameObject.tag == "wall")
-        {
-            Destroy(gameObject);
-        }
         if(collision.collider.gameObject.tag == "Player")
         {
             gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 }
