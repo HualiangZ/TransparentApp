@@ -48,18 +48,6 @@ public class Transparent : MonoBehaviour
     private IntPtr hWnd;
     private int GWL_EXSTYLE = -20;
 
-    //test
-    [DllImport("user32.dll", EntryPoint = "EnumDesktopWindows",
-    ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
-    public static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDelegate lpEnumCallbackFunction, IntPtr lParam);
-    public delegate bool EnumDelegate(IntPtr hWnd, int lParam);
-    //=====
-
-
-
-
-
-
     void Start()
     {
         //MessageBox(new IntPtr(0), "Hello world", "Dialog", 0);
@@ -72,7 +60,6 @@ public class Transparent : MonoBehaviour
         SetWindowLong(hWnd, GWL_EXSTYLE, WS_EX_LAYERED);
         SetLayeredWindowAttributes(hWnd, 0, 0, LWA_COLORKEY);
         SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, 0);
-
 
 #endif
     }
