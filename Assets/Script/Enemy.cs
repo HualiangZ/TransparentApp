@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float force, radius;
+    public Transform bulletSpawn;
+    public GameObject bullet;
+    public int speed;
+    private GameObject bulletInst;
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(shoot());
     }
 
     // Update is called once per frame
@@ -16,18 +19,15 @@ public class Enemy : MonoBehaviour
     {
         LookAt();
         Move();
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            KnockBack();
-        }
+        
+        
     }
 
     private void Move()
     {
         var targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         targetPos.z = transform.position.z;
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, 20 * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
     }
 
     private void LookAt()
@@ -37,18 +37,22 @@ public class Enemy : MonoBehaviour
         transform.LookAt(targetPos, Vector3.forward);
     }
 
-    public void KnockBack()
+    IEnumerator shoot()
     {
-        Collider[] colliders = Physics.OverlapSphere(transform.position, radius);
-
-        foreach (Collider c in colliders)
+        for(; ; )
         {
-            Rigidbody rb = c.GetComponent<Rigidbody>();
-            if (rb)
-            {
-                rb.AddExplosionForce(force, transform.position, radius);
-            }
+            yield return new WaitForSeconds(1);
+            bulletInst = Instantiate(bullet, bulletSpawn.position, gameObject.transform.rotation);
+            yield return new WaitForSeconds(2);
         }
+ 
+    }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.collider.tag == "wall")
+        {
+            Destroy(gameObject);
+        }
     }
 }

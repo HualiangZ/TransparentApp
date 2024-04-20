@@ -45,9 +45,12 @@ public class DragObject : MonoBehaviour
         {
             return;
         }*/
-
-        joints = attachedRigidbody.gameObject.AddComponent<TargetJoint2D>();
-        joints.autoConfigureTarget = false;
-        joints.anchor = attachedRigidbody.transform.InverseTransformPoint(pos);
+        if(collider.tag == "Moveable")
+        {
+            joints = attachedRigidbody.gameObject.AddComponent<TargetJoint2D>();
+            joints.autoConfigureTarget = false;
+            joints.anchor = attachedRigidbody.transform.InverseTransformPoint(pos);
+        }
+        
     }
 }
