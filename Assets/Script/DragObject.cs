@@ -5,8 +5,9 @@ using UnityEngine;
 public class DragObject : MonoBehaviour
 {
     LayerMask clickLayerMask = ~0;
-
     TargetJoint2D joints;
+
+    public Camera targetCamera;
 
     void Update()
     {
@@ -19,7 +20,7 @@ public class DragObject : MonoBehaviour
             }
         }
 
-        Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 pos = targetCamera.ScreenToWorldPoint(Input.mousePosition);
 
         if (joints)
         {

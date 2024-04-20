@@ -48,6 +48,17 @@ public class Transparent : MonoBehaviour
     private IntPtr hWnd;
     private int GWL_EXSTYLE = -20;
 
+    //find windows
+    [DllImport("user32.dll")]
+    private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+    public delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
+    public List<IntPtr> windows = new List<IntPtr>();
+
+    //============
+
+
+
+
     void Start()
     {
         //MessageBox(new IntPtr(0), "Hello world", "Dialog", 0);
@@ -71,5 +82,6 @@ public class Transparent : MonoBehaviour
             Application.Quit();
         }
     }
+
 
 }
