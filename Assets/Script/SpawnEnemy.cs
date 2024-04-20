@@ -10,7 +10,9 @@ public class SpawnEnemy : MonoBehaviour
     void Start()
     {
         spawn = GameObject.FindGameObjectsWithTag("Spawn");
-        StartCoroutine(Spawn());
+        Instantiate(enemy);
+
+       StartCoroutine(Spawn());
     }
 
     // Update is called once per frame
