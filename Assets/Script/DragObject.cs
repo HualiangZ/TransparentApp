@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class testscript : MonoBehaviour
+public class DragObject : MonoBehaviour
 {
     LayerMask clickLayerMask = ~0;
 
@@ -18,7 +18,7 @@ public class testscript : MonoBehaviour
                 joints = null;
             }
 
-            return;
+            //return;
         }
 
         Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -35,16 +35,16 @@ public class testscript : MonoBehaviour
         }
 
         Collider2D collider = Physics2D.OverlapPoint(pos, clickLayerMask);
-        if (!collider)
+/*        if (!collider)
         {
             return;
-        }
+        }*/
 
         Rigidbody2D attachedRigidbody = collider.attachedRigidbody;
-        if (!attachedRigidbody)
+/*        if (!attachedRigidbody)
         {
             return;
-        }
+        }*/
 
         joints = attachedRigidbody.gameObject.AddComponent<TargetJoint2D>();
         joints.autoConfigureTarget = false;

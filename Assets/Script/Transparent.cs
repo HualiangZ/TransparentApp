@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.Diagnostics;
+using UnityEngine.AI;
+using UnityEngine.XR;
 
 public class Transparent : MonoBehaviour
 {
@@ -21,6 +23,13 @@ public class Transparent : MonoBehaviour
 
     [DllImport("user32.dll")]
     static extern int SetLayeredWindowAttributes(IntPtr hwnd, uint crKey, byte bAlpha, uint dwFlags);
+
+
+    [DllImport("user32.dll")]
+    static extern bool EnumWindows(CallBackPtr lpEnumFunc, IntPtr lParam);
+
+    private delegate bool CallBackPtr(IntPtr hWnd, IntPtr lParam);
+    private CallBackPtr callBackPtr;
     private struct Margins
     {
         public int cxLeftWidth;
@@ -39,12 +48,22 @@ public class Transparent : MonoBehaviour
     private IntPtr hWnd;
     private int GWL_EXSTYLE = -20;
 
+    //test
+    [DllImport("user32.dll", EntryPoint = "EnumDesktopWindows",
+    ExactSpelling = false, CharSet = CharSet.Auto, SetLastError = true)]
+    public static extern bool EnumDesktopWindows(IntPtr hDesktop, EnumDelegate lpEnumCallbackFunction, IntPtr lParam);
+    public delegate bool EnumDelegate(IntPtr hWnd, int lParam);
+    //=====
+
+
+
+
 
 
     void Start()
     {
         //MessageBox(new IntPtr(0), "Hello world", "Dialog", 0);
-#if !UNITY_EDITOR_
+#if !UNITY_EDITOR
         hWnd = GetActiveWindow();
 
         Margins margins = new Margins{cxLeftWidth = -1};
@@ -54,7 +73,16 @@ public class Transparent : MonoBehaviour
         SetLayeredWindowAttributes(hWnd, 0, 0, LWA_COLORKEY);
         SetWindowPos(hWnd, HWND_TOPMOST, 0, 0, 0, 0, 0);
 
+
 #endif
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 
 }
