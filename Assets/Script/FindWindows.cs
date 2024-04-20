@@ -17,6 +17,9 @@ public class FindWindows : MonoBehaviour
     public delegate bool WndEnumProc(IntPtr hWnd, IntPtr lParam);
     public List<IntPtr> windows = new List<IntPtr>();
 
+    [DllImport("user32.dll")]
+    static extern bool IsWindowVisible(IntPtr hWnd);
+
     //============
 
     void Start()
@@ -37,7 +40,11 @@ public class FindWindows : MonoBehaviour
 
         EnumWindows(new WndEnumProc((hwnd, lParam) =>
         {
-            result.Add(hwnd);
+            if (IsWindowVisible(hwnd))
+            {
+                result.Add(hwnd);
+                return true;
+            }
             return true;
         }), 0);
 
