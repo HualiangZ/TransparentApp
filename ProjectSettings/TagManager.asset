@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - wall
   - Spawn
+  - Border
   layers:
   - Default
   - TransparentFX

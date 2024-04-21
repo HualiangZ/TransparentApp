@@ -63,7 +63,7 @@ public class FollowMouse : MonoBehaviour
         if (col.collider.tag == "Bullet")
         {
             collider = col.collider;
-            StartCoroutine(DeathToOthers(col.gameObject));
+            StartCoroutine(DeathToOtherObject(col.gameObject));
         }
         
     }
@@ -75,7 +75,7 @@ public class FollowMouse : MonoBehaviour
         transform.position = targetPos;
     }
 
-    IEnumerator DeathToOthers(GameObject gameObject)
+    IEnumerator DeathToOtherObject(GameObject gameObject)
     {
         yield return new WaitForSeconds(1f);
         Destroy(gameObject);
