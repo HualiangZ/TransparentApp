@@ -8,7 +8,7 @@ using UnityEngine;
 public class FindWindows : MonoBehaviour
 {
 
-    public TMP_Text test;
+    //public TMP_Text test;
 
     public GameObject BorderList;
 
@@ -41,7 +41,7 @@ public class FindWindows : MonoBehaviour
     }
     //============
     RECT rct;
-   // RECT rct2;
+    //RECT rct2;
 
     void Start()
     {
@@ -81,7 +81,7 @@ public class FindWindows : MonoBehaviour
         MoveBordersCheat();
 
 
-        test.text = "border: "+ BorderListInst.Count.ToString() + " -- " + "window: " + windows.Count.ToString();
+        //test.text = "border: "+ BorderListInst.Count.ToString() + " -- " + "window: " + windows.Count.ToString();
 
 
         /*Instantiate(testSquare);*/
