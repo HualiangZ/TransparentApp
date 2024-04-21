@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
@@ -45,23 +46,24 @@ public class FindWindows : MonoBehaviour
 
     void Start()
     {
-/*        windows = EnumWindows();
+        windows = EnumWindows();
         for (int i = 0; i < windows.Count; i++)
         {
-            BorderListInst.Clear();
+            
             GameObject newGO = Instantiate(BorderList);
             BorderListInst.Add(newGO);
-        }*/
-        //windows = EnumWindows();
-        obj = Instantiate(BorderList);
+        }
 
-        //obj2 = Instantiate(BorderList);
+        StartCoroutine(MoveBorderC());
+
+
+        obj = Instantiate(BorderList);
     }
 
     // Update is called once per frame
     void Update()
     {
-/*
+
         if (EnumWindows().Count != windows.Count)
         {
             BorderListInst.Clear();
@@ -71,22 +73,14 @@ public class FindWindows : MonoBehaviour
                 GameObject newGO = (GameObject)Instantiate(BorderList);
                 BorderListInst.Add(newGO);
             }
-
-
-        }*/
+        }
 
         //MoveBorders();
 
-        //MoveBordersCheat2();
-        MoveBordersCheat();
+
+        //MoveBordersCheat();
 
 
-        //test.text = "border: "+ BorderListInst.Count.ToString() + " -- " + "window: " + windows.Count.ToString();
-
-
-        /*Instantiate(testSquare);*/
-
-        //testSquare.transform.localScale = new Vector2(rct.Right  - rct.Left  + 1, rct.Bottom  - rct.Top  + 1);
     }
 
     private static List<IntPtr> EnumWindows()
@@ -147,7 +141,7 @@ public class FindWindows : MonoBehaviour
     {
         for (int i = 0; i<windows.Count; i++)
         {
-            if (GetWindowRect(EnumWindows()[i], out rct))
+            if (GetWindowRect(windows[i], out rct))
             {
                 Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(rct.Left, 1080 - rct.Top));
                 Vector2 pos2 = Camera.main.ScreenToWorldPoint(new Vector2(rct.Right, 1080 - rct.Bottom));
@@ -157,6 +151,26 @@ public class FindWindows : MonoBehaviour
             }
         }
 
+    }
+
+    IEnumerator MoveBorderC()
+    {
+        for(; ; )
+        {
+            for (int i = 0; i < windows.Count; i++)
+            {
+                if (GetWindowRect(windows[i], out rct))
+                {
+                    Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(rct.Left, 1080 - rct.Top));
+                    Vector2 pos2 = Camera.main.ScreenToWorldPoint(new Vector2(rct.Right, 1080 - rct.Bottom));
+                    BorderListInst[i].GetComponent<BorderScript>().Resize(pos, pos2);
+                    BorderListInst[i].GetComponent<BorderScript>().ReLocate(pos, pos2);
+
+                }
+                yield return new WaitForSeconds(0.2f);
+            }
+
+        }
     }
 
 
