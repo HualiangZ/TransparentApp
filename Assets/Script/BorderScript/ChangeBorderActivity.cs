@@ -19,6 +19,8 @@ public class ChangeBorderActivity : MonoBehaviour
 
     public bool col;
 
+    private int health = 5;
+
     void Start()
     {
         col = true;
@@ -27,17 +29,8 @@ public class ChangeBorderActivity : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // ChangeActivity();
         FindCol();
-/*        if (col)
-        {
-            gameObject.GetComponent<BoxCollider2D>().enabled = true;
-            Debug.Log(col);
-        }
-        else
-        {
-            gameObject.GetComponent<BoxCollider2D>().enabled = false;
-        }*/
+        CheckHealth();
     }
 
     public void FindCol()
@@ -67,6 +60,14 @@ public class ChangeBorderActivity : MonoBehaviour
         }
     }
 
+    public void CheckHealth()
+    {
+        if (health == 0)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log(collision.tag);
@@ -75,12 +76,10 @@ public class ChangeBorderActivity : MonoBehaviour
             colliders.Add(collision); 
         }
 
-/*        if(collision.tag == "BorderList")
+        if (collision.gameObject.tag == "Bullet")
         {
-            gameObject.GetComponent<SpriteRenderer>().enabled = false;
-            //gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.1f,0.1f);
-            //col = false;
-        }*/
+            health--;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
