@@ -41,7 +41,7 @@ public class NewBehaviourScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Border")
+        if (collision.gameObject.tag == "Border" && collision.gameObject.GetComponent<ChangeBorderActivity>().col == true)
         {
             Destroy(gameObject);
         }

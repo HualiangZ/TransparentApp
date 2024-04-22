@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FindWindows : MonoBehaviour
@@ -33,6 +34,11 @@ public class FindWindows : MonoBehaviour
     [DllImport("user32.dll")]
     static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
 
+    [DllImport("user32.dll")]
+    static extern IntPtr GetForegroundWindow();
+
+    private IntPtr starthWnd;
+
     public struct RECT
     {
         public int Left;        // x position of upper-left corner
@@ -46,26 +52,32 @@ public class FindWindows : MonoBehaviour
 
     void Start()
     {
+        starthWnd = GetForegroundWindow();
         windows = EnumWindows();
         for (int i = 0; i < windows.Count; i++)
         {
-            
+
             GameObject newGO = Instantiate(BorderList);
             BorderListInst.Add(newGO);
         }
 
-        StartCoroutine(MoveBorderC());
+        //StartCoroutine(MoveBorderC());
 
 
-        obj = Instantiate(BorderList);
+        //obj = Instantiate(BorderList);
     }
 
     // Update is called once per frame
     void Update()
     {
+        //GameObject[] border = GameObject.FindGameObjectsWithTag("Border");
 
         if (EnumWindows().Count != windows.Count)
         {
+            foreach (GameObject obj in BorderListInst)
+            {
+                Destroy(obj);
+            }
             BorderListInst.Clear();
             windows = EnumWindows();
             for (int i = 0; i < windows.Count; i++)
@@ -75,7 +87,22 @@ public class FindWindows : MonoBehaviour
             }
         }
 
-        //MoveBorders();
+        foreach (IntPtr hWnd in windows)
+        {
+            int a = windows.IndexOf(hWnd);
+            if (hWnd == GetForegroundWindow() && hWnd != starthWnd)
+            {
+                BorderListInst[a].GetComponent<BoxCollider2D>().enabled = true;
+
+            }
+            else
+            {
+                BorderListInst[a].GetComponent<BoxCollider2D>().enabled = false;
+            }
+
+        }
+
+        MoveBorders();
 
 
         //MoveBordersCheat();
@@ -103,14 +130,12 @@ public class FindWindows : MonoBehaviour
 
     private static bool IsAppWindow(IntPtr hWnd)
     {
-        int style = GetWindowLong(hWnd, -16); // GWL_STYLE
+        int style = GetWindowLong(hWnd, -16);
 
-        // check for WS_VISIBLE and WS_CAPTION flags
-        // (that the window is visible and has a title bar)
         return (style & 0x10C00000) == 0x10C00000;
     }
 
-    private void MoveBordersCheat()
+/*    private void MoveBordersCheat()
     {
         if (GetWindowRect(EnumWindows()[0], out rct))
         {
@@ -120,7 +145,7 @@ public class FindWindows : MonoBehaviour
             obj.GetComponent<BorderScript>().ReLocate(pos, pos2);
 
         }
-    }
+    }*/
 /*    private void MoveBordersCheat2()
     {
         if (GetWindowRect(EnumWindows()[1], out rct2))
@@ -147,13 +172,18 @@ public class FindWindows : MonoBehaviour
                 Vector2 pos2 = Camera.main.ScreenToWorldPoint(new Vector2(rct.Right, 1080 - rct.Bottom));
                 BorderListInst[i].GetComponent<BorderScript>().Resize(pos, pos2);
                 BorderListInst[i].GetComponent<BorderScript>().ReLocate(pos, pos2);
+/*                if (starthWnd != null && starthWnd != windows[i])
+                {
+                    BorderListInst[i].GetComponent<BorderScript>().hWnd = windows[i];
+                }*/
+               
 
             }
         }
 
     }
 
-    IEnumerator MoveBorderC()
+/*    IEnumerator MoveBorderC()
     {
         for(; ; )
         {
@@ -161,6 +191,7 @@ public class FindWindows : MonoBehaviour
             {
                 if (GetWindowRect(windows[i], out rct))
                 {
+                    Debug.Log(i);
                     Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(rct.Left, 1080 - rct.Top));
                     Vector2 pos2 = Camera.main.ScreenToWorldPoint(new Vector2(rct.Right, 1080 - rct.Bottom));
                     BorderListInst[i].GetComponent<BorderScript>().Resize(pos, pos2);
@@ -172,6 +203,6 @@ public class FindWindows : MonoBehaviour
 
         }
     }
-
+*/
 
 }

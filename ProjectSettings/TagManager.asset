@@ -9,6 +9,7 @@ TagManager:
   - wall
   - Spawn
   - Border
+  - BorderList
   layers:
   - Default
   - TransparentFX

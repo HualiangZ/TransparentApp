@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyScript : MonoBehaviour
 {
+    public IntPtr hWnd;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,9 +19,9 @@ public class DestroyScript : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Bullet")
+/*        if (collision.tag == "Bullet")
         {
             Destroy(collision);
-        }
+        }*/
     }
 }

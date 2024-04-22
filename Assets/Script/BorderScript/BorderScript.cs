@@ -12,11 +12,16 @@ public class BorderScript : MonoBehaviour
     public GameObject borderRight;
     //public Camera cam;
 
-    public Vector2 pos;
-    public Vector2 pos2;
+/*    public Vector2 pos;
+    public Vector2 pos2;*/
 
     [DllImport("user32.dll")]
     static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+
+    [DllImport("user32.dll")]
+    static extern IntPtr GetForegroundWindow();
+
+    public IntPtr hWnd;
     public struct RECT
     {
         public int Left;        // x position of upper-left corner
@@ -29,10 +34,10 @@ public class BorderScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        borderTop = GameObject.Find("BorderTop");
+/*        borderTop = GameObject.Find("BorderTop");
         borderLeft = GameObject.Find("BorderLeft");
         borderRight = GameObject.Find("BorderRight");
-        borderBottom = GameObject.Find("BorderBottom");
+        borderBottom = GameObject.Find("BorderBottom");*/
     }
 
     // Update is called once per frame
@@ -53,16 +58,17 @@ public class BorderScript : MonoBehaviour
             borderBottom.transform.localScale = new Vector2(pos.x - pos2.x, 1);
         }
 
-        if(borderLeft != null)
+        if (borderLeft != null)
         {
             borderLeft.transform.localScale = new Vector2(1, pos.y - pos2.y);
         }
 
-        if(borderRight != null)
+        if (borderRight != null)
         {
             borderRight.transform.localScale = new Vector2(1, pos.y - pos2.y);
         }
-        
+
+        this.GetComponent<BoxCollider2D>().size = new Vector2(pos2.x - pos.x-6, pos.y - pos2.y-6);
     }
 
     public void ReLocate(Vector2 pos, Vector2 pos2)
@@ -75,26 +81,19 @@ public class BorderScript : MonoBehaviour
         {
             borderBottom.transform.position = new Vector2(pos.x - ((pos.x - pos2.x) / 2), pos.y - (pos.y - pos2.y) + 2);
         }
-        if((borderLeft != null))
+        if ((borderLeft != null))
         {
             borderLeft.transform.position = new Vector2(pos.x + 2, pos.y - ((pos.y - pos2.y) / 2));
-        }if((borderRight != null))
+        }
+        if ((borderRight != null))
         {
             borderRight.transform.position = new Vector2(pos.x - (pos.x - pos2.x) - 2, pos.y - ((pos.y - pos2.y) / 2));
         }
-
+        transform.position = new Vector2 (pos.x - ((pos.x - pos2.x) / 2), pos.y - ((pos.y - pos2.y) / 2));
     }
 
-    public void SetPos(IntPtr hWnd)
+/*    public void SetBorderActivity(IntPtr hWnd)
     {
-
-        if (GetWindowRect(hWnd, out rct))
-        {
-            Vector2 pos = Camera.main.ScreenToWorldPoint(new Vector2(rct.Left, 1080 - rct.Top));
-            Vector2 pos2 = Camera.main.ScreenToWorldPoint(new Vector2(rct.Right, 1080 - rct.Bottom));
-            Resize(pos, pos2);
-            ReLocate(pos, pos2);
-
-        }
-    }
+        borderTop.GetComponent<ChangeBorderActivity>().hWnd =hWnd;
+    }*/
 }

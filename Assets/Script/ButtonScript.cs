@@ -17,9 +17,9 @@ public class ButtonScript : MonoBehaviour
         
     }
 
-    public void NextScene()
+    public void Quit()
     {
-        SceneManager.LoadScene(nextScene);
+        Application.Quit();
     }
 
 }

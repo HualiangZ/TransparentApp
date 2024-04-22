@@ -194,7 +194,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b1c2471dac5654fa52b7d6a609aa8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 1365900102}
   BorderList: {fileID: 1779809040933717543, guid: 9e4668c7738863344be65c7f377131d3, type: 3}
   BorderListInst: []
   testCamera: {fileID: 1367922683}
@@ -991,7 +990,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!212 &1598851327
 SpriteRenderer:
   m_ObjectHideFlags: 0
