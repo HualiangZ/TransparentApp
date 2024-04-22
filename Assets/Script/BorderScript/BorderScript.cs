@@ -21,6 +21,12 @@ public class BorderScript : MonoBehaviour
     [DllImport("user32.dll")]
     static extern IntPtr GetForegroundWindow();
 
+    [DllImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    public int deadBorders = 0;
+    private const int SW_HIDE = 0;
     public IntPtr hWnd;
     public struct RECT
     {

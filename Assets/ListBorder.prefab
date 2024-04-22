@@ -54,6 +54,7 @@ MonoBehaviour:
   borderBottom: {fileID: 538547927738927039}
   borderLeft: {fileID: 5469596544987611692}
   borderRight: {fileID: 5288900842836286412}
+  deadBorders: 0
 --- !u!61 &6471135162217558799
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -256,7 +257,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441e87e9029b895428c2507dc595b304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BorderWnd: {fileID: 1779809040933717543}
   colliders: []
+  col: 0
 --- !u!4 &7675356704853326928 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837335002999298329, guid: db30ce6375b658c47ba25d1fb1e70e29, type: 3}
@@ -392,7 +395,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441e87e9029b895428c2507dc595b304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BorderWnd: {fileID: 1779809040933717543}
   colliders: []
+  col: 0
 --- !u!4 &8473976297508099996 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837335002999298329, guid: db30ce6375b658c47ba25d1fb1e70e29, type: 3}
@@ -528,7 +533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441e87e9029b895428c2507dc595b304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BorderWnd: {fileID: 1779809040933717543}
   colliders: []
+  col: 0
 --- !u!4 &8582601763284668028 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837335002999298329, guid: db30ce6375b658c47ba25d1fb1e70e29, type: 3}
@@ -664,7 +671,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 441e87e9029b895428c2507dc595b304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BorderWnd: {fileID: 1779809040933717543}
   colliders: []
+  col: 0
 --- !u!4 &4109319031542698511 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7837335002999298329, guid: db30ce6375b658c47ba25d1fb1e70e29, type: 3}

@@ -13,6 +13,7 @@ public class ChangeBorderActivity : MonoBehaviour
     // Start is called before the first frame update
     [DllImport("user32.dll")]
     static extern IntPtr GetForegroundWindow();
+    public GameObject BorderWnd;
 
     public List<Collider2D> colliders = new List<Collider2D>();
     public List<Collider2D> GetColliders() { return colliders; }
@@ -64,6 +65,7 @@ public class ChangeBorderActivity : MonoBehaviour
     {
         if (health == 0)
         {
+            BorderWnd.GetComponent<BorderScript>().deadBorders += 1;
             gameObject.SetActive(false);
         }
     }
